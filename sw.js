@@ -1,5 +1,5 @@
-// SurgAtlas Service Worker — v1.0.0
-const CACHE_NAME = 'surgatlas-v1';
+// SurgAtlas Service Worker — v1.0.1
+const CACHE_NAME = 'surgatlas-v2';
 const ASSETS = [
   './',
   './index.html',

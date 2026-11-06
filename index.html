@@ -439,6 +439,17 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   </div>
 </div>
 
+<!-- PWA Install Banner -->
+<div class="pwa-install-banner" id="pwaInstallBanner">
+  <div class="pwa-install-icon">🩺</div>
+  <div class="pwa-install-text">
+    <div class="pwa-install-title">Install SurgAtlas</div>
+    <div class="pwa-install-desc">Add to home screen for instant offline access to all 84 flowcharts</div>
+  </div>
+  <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
+  <button class="pwa-install-dismiss" id="pwaInstallDismiss">✕</button>
+</div>
+
 <script>
 const FLOWS = [
 {"id": "flow_abd_trauma", "title": "Abdominal Trauma", "kicker": "Emergency Surgery · Flowchart", "desc": "ATLS-based approach, FAST, NOM vs damage control surgery for abdominal trauma.", "cat": "emergency", "catLabel": "Acute Abdomen & Emergencies", "catColor": "#dc2626", "catIcon": "🚨", "body": "<div class=\"node\"><div class=\"node-inner n-start\">Blunt or penetrating abdominal trauma<br>RTC · Fall · Stab · GSW · Blast injury</div></div>\n<div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div>\n<div class=\"node\"><div class=\"node-inner n-emergency\">ATLS Primary Survey — simultaneous assessment + resuscitation<br>A: Airway (c-spine immobilisation if mechanism) · B: Breathing (SpO₂, bilateral breath sounds)<br>C: Circulation — haemorrhage control: direct pressure · tourniquet (junctional) · pelvic binder<br>D: Disability (GCS, pupils) · E: Exposure/Environment (log roll, hypothermia prevention)</div></div>\n<div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div>\n<div class=\"node\"><div class=\"node-inner n-diag\">FAST / eFAST (immediate bedside): pericardium · bilateral pleura · peritoneum · pelvis<br>CXR + Pelvic XR (trauma series)<br>CT trauma whole-body (pan-scan) with IV contrast: haemodynamically STABLE patients<br>Blood: FBC · Coag (including fibrinogen) · Crossmatch · Lactate · ABG · βhCG · Amylase</div></div>\n<div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div>\n<div class=\"section-hdr\">Haemodynamic Status Algorithm</div>\n<div class=\"score-table\"><table><tr><th>Status</th><th>SBP</th><th>Response to fluid</th><th>Action</th></tr><tr><td>Stable</td><td>&gt;90</td><td>Sustained</td><td>CT → selective NOM</td></tr><tr><td>Transient</td><td>&gt;90 → drops</td><td>Transient</td><td>Expedite CT or theatre</td></tr><tr><td>Unstable</td><td>&lt;90 despite resus</td><td>None</td><td>Positive FAST → laparotomy</td></tr></table></div>\n<div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div>\n<div class=\"node\"><div class=\"node-inner n-decision\">Haemodynamically stable?</div></div>\n<div class=\"branch-row\"><div class=\"branch\"><div class=\"bl bl-y\">STABLE — CT-guided</div><div class=\"node\"><div class=\"node-inner n-diag\">CT whole-body · AAST grading solid organs · Active contrast extravasation = arterial bleed</div></div><div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div><div class=\"node\"><div class=\"node-inner n-decision\">Injury type on CT?</div></div><div class=\"branch-row\"><div class=\"branch\"><div class=\"bl bl-a\">Solid organ Grade I–III<br>No active blush</div><div class=\"node\"><div class=\"node-inner n-treatment\">Non-operative management (NOM): success 85–95%<br>ICU observation · Serial haematocrit · Repeat CT 48–72h<br>IR angioembolisation: Grade III–V · Active blush · Haematoma expansion · Haemodynamic deterioration</div></div></div><div class=\"branch\"><div class=\"bl bl-b\">Hollow viscus / mesenteric<br>Free air · Bowel wall thickening</div><div class=\"node\"><div class=\"node-inner n-emergency\">Emergency laparotomy<br>Bowel laceration: primary repair (clean, &lt;6h) or resection + anastomosis<br>Colonic injury: primary repair vs colostomy (contamination/delayed)</div></div></div></div></div><div class=\"branch\"><div class=\"bl bl-n\">UNSTABLE — Emergency surgery</div><div class=\"node\"><div class=\"node-inner n-emergency\">RESUSCITATIVE MEASURES (concurrent with surgery preparation):<br>Activate MTP (1:1:1 RBC:FFP:Platelets) · TXA 1g IV within 3h (CRASH-2)<br>Permissive hypotension: SBP 80–90mmHg until haemostasis (NOT if TBI — maintain MAP &gt;80)<br>REBOA (Zone I thoracic aorta): bridge to theatre for sub-diaphragmatic haemorrhage · Reduces haemorrhage, maintains cerebral/coronary perfusion<br>Resuscitative thoracotomy: penetrating trauma + cardiac arrest within 15 min · ER thoracotomy for left chest stab wound · Aortic cross-clamp at diaphragm</div></div><div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div><div class=\"node\"><div class=\"node-inner n-emergency\">DAMAGE CONTROL SURGERY (DCS) — 3 phases:<br>Phase I (theatre): haemorrhage control (packing · vascular clamping/shunting) + contamination control (bowel stapled, not anastomosed) · Temporary closure (VAC/Bogota bag) · &lt;90 min operative time<br>Phase II (ICU 24–48h): rewarm (target &gt;36°C) · Correct coagulopathy (ROTEM-guided) · Correct acidosis (pH &gt;7.35) · Correct hypothermia<br>Phase III (re-look 24–48h): definitive repair · Anastomosis · Fascial closure · Reconstruction</div></div></div></div>\n<div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div>\n<div class=\"section-hdr\">Specific Injury Management</div>\n<div class=\"multi-out\"><div class=\"mo mo-el\"><strong>Liver AAST I–III</strong>NOM 85–95%. Grade IV–V + blush → IR embolisation (primary). Operative: Pringle manoeuvre, packing, topical haemostatics. Extended Pringle &gt;30 min → ischaemic injury.</div><div class=\"mo mo-ur\"><strong>Spleen AAST I–III</strong>NOM preferred. Grade IV–V → IR embolisation (success 70–90%) or splenectomy. Post-splenectomy: PCV13/PPSV23/MenACWY/Hib vaccines + penicillin V lifelong.</div><div class=\"mo mo-em\"><strong>Pancreas / Duodenum</strong>CT underestimates. Amylase unreliable acutely. Grade I–II: drain. Grade III+: ERCP/MRCP for ductal injury. Whipple's (Grade V) only in stable, expert hands.</div><div class=\"mo mo-tx\"><strong>Pelvic fracture</strong>Pelvic binder immediately. Haemodynamic instability → pre-peritoneal packing (PPP) or REBOA Zone III then angioembolisation. External fixation to reduce volume.</div><div class=\"mo mo-pu\"><strong>Diaphragm</strong>Left-sided 90%. CT diagnosis often missed acutely. Repair urgently (open/laparoscopic). Missed → chronic herniation/strangulation.</div></div>\n<div class=\"conn\"><div class=\"conn-line\"></div><div class=\"conn-arrow\"></div></div>\n<div class=\"node\"><div class=\"node-inner n-end\">Trauma MDT · ITU · Re-look 24–48h (DCS) · Rehabilitation · Psychological support (PTSD)</div></div>"},
@@ -529,6 +540,8 @@ const FLOWS = [
 const CATS = [{"id": "emergency", "label": "Acute Abdomen & Emergencies", "icon": "🚨", "color": "#dc2626"}, {"id": "hpb_benign", "label": "Hepatobiliary — Benign", "icon": "🫁", "color": "#ea580c"}, {"id": "hpb_onco", "label": "Hepatobiliary — Oncology", "icon": "🔬", "color": "#92400e"}, {"id": "colorectal", "label": "Colorectal Surgery", "icon": "🟣", "color": "#7c3aed"}, {"id": "uppergi", "label": "Upper GI Surgery", "icon": "🟡", "color": "#b45309"}, {"id": "hernias", "label": "Hernias", "icon": "⭕", "color": "#0f766e"}, {"id": "breast", "label": "Breast Surgery", "icon": "🩷", "color": "#be185d"}, {"id": "endocrine", "label": "Endocrine Surgery", "icon": "🟢", "color": "#15803d"}, {"id": "vascular", "label": "Vascular Surgery", "icon": "🔴", "color": "#b91c1c"}, {"id": "skin", "label": "Skin & Soft Tissue", "icon": "🟤", "color": "#a16207"}, {"id": "periop", "label": "Perioperative & Critical Care", "icon": "💊", "color": "#374151"}, {"id": "paediatric", "label": "Paediatric Surgery", "icon": "🧒", "color": "#0369a1"}];
 
 // ── helpers ─────────────────────────────────────────────────────────────
+function esc(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function plain(h){return h.replace(/<[^>]*>/g,' ')}
 function byCat(id){return FLOWS.filter(f=>f.cat===id)}
 function catOf(f){return CATS.find(c=>c.id===f.cat)||{color:'#3b82f6',label:''}}
 
@@ -608,10 +621,10 @@ function showSearch(q){
   const res=FLOWS.filter(f=>
     f.title.toLowerCase().includes(ql)||
     f.kicker.toLowerCase().includes(ql)||
-    f.desc.toLowerCase().includes(ql)||
-    f.body.toLowerCase().includes(ql)
+    plain(f.desc).toLowerCase().includes(ql)||
+    (f._txt||(f._txt=plain(f.body).toLowerCase())).includes(ql)
   );
-  document.getElementById('srTitle').innerHTML=`${res.length} result${res.length!==1?'s':''} for <em>"${q}"</em>`;
+  document.getElementById('srTitle').innerHTML=`${res.length} result${res.length!==1?'s':''} for <em>"${esc(q)}"</em>`;
   document.getElementById('srGrid').innerHTML=res.length
     ? res.map(flowCard).join('')
     : '<div class="no-res">No flowcharts match that search.</div>';
@@ -1186,12 +1199,12 @@ function renderAbbr(q){
     !ql || k.toLowerCase().includes(ql) || v.toLowerCase().includes(ql)
   );
   if(!entries.length){
-    document.getElementById('abbrBody').innerHTML='<div class="abbr-no-res">No abbreviations match "'+q+'"</div>';
+    document.getElementById('abbrBody').innerHTML='<div class="abbr-no-res">No abbreviations match "'+esc(q)+'"</div>';
     return;
   }
   const groups={};
   entries.forEach(([k,v])=>{
-    let letter=k.replace(/^[^A-Za-z]/,'').charAt(0).toUpperCase();
+    let letter=/^\d/.test(k)?'#':k.replace(/^[^A-Za-z]/,'').charAt(0).toUpperCase();
     if(!letter||/\d/.test(letter))letter='#';
     if(!groups[letter])groups[letter]=[];
     groups[letter].push([k,v]);
@@ -1431,16 +1444,6 @@ if (window.location.hash === '#emergency') {
 
 </script>
 
-<!-- PWA Install Banner -->
-<div class="pwa-install-banner" id="pwaInstallBanner">
-  <div class="pwa-install-icon">🩺</div>
-  <div class="pwa-install-text">
-    <div class="pwa-install-title">Install SurgAtlas</div>
-    <div class="pwa-install-desc">Add to home screen for instant offline access to all 84 flowcharts</div>
-  </div>
-  <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
-  <button class="pwa-install-dismiss" id="pwaInstallDismiss">✕</button>
-</div>
 
 </body>
 </html>
